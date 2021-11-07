@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 // API
 import API from "../API";
+import { getSessionState } from '../helpers';
 
 const initialState = {
   page: 0,
@@ -36,6 +37,16 @@ export const useHomeFetch = () => {
 
   // initial and search
   useEffect(() => {
+    if (!searchTerm) {
+      const sessionState = getSessionState("homeState");
+      if (sessionState) {
+        setState(sessionState);
+        console.log("From sessionStorage");
+        return;
+      }
+    }
+    
+    console.log("From API");
     setState(initialState);
     fetchMovies(1, searchTerm);
   }, [searchTerm])
@@ -46,6 +57,12 @@ export const useHomeFetch = () => {
     fetchMovies(state.page + 1, searchTerm);
     setIsLoadingMore(false);
   }, [isLoadingMore, state.page, searchTerm])
+
+  useEffect(() => {
+    if (!searchTerm) {
+      sessionStorage.setItem("homeState", JSON.stringify(state))
+    }
+  }, [searchTerm, state])
 
   return {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore}
 } 

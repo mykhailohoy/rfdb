@@ -34,7 +34,7 @@ const Home = () => {
           text={state.results[0].overview}
         />
         : null}
-      <SearchBar setSearchTerm={setSearchTerm} />
+      <SearchBar setSearchTerm={setSearchTerm} results={state.results} />
       <Grid header={searchTerm ? "Search Results" : "Popular Films"}>
         {state.results.map(movie => (
           <Thumb

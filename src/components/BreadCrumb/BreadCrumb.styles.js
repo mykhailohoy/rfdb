@@ -17,12 +17,12 @@ export const Content = styled.div`
   padding: 0 20px;
 
   span {
-    font-size: 1.2rem;
+    font-size: var(--fontMed);
     color: var(--white);
     padding-right: 10px;
 
     @media screen and (max-width: 768px) {
-      font-size: 16px;
+      font-size: var(--fontSmall);
     }
   }
 `;
